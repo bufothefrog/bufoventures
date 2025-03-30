@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>privacy consulting</title>
   <style>
-    /* overall page style: dark background with a technical, mysterious vibe */
     body {
       background-color: #000;
       color: #0f0;
@@ -18,7 +17,6 @@
       text-align: center;
       text-transform: lowercase;
     }
-    /* container for centered content */
     .container {
       max-width: 800px;
       padding: 20px;
@@ -27,19 +25,16 @@
       font-size: 2em;
       margin: 20px 0;
     }
-    /* static part styling */
     .static {
       margin-bottom: 10px;
     }
-    /* dynamic text with smooth fade transition and fixed width */
     .dynamic {
       transition: opacity 0.5s ease-in-out;
       display: inline-block;
-      min-width: 23ch; /* fixed width to accommodate longest phrase */
     }
     .contact {
       font-size: 1em;
-      margin-top: 160px; /* pushed further down */
+      margin-top: 160px;
     }
   </style>
 </head>
@@ -57,16 +52,14 @@
     </div>
   </div>
   <script>
-    // list of dynamic phrases
     const phrases = [
+      "the desire for peace of mind",
       "a life worth securing",
       "personal data worth protecting",
-      "digital world to safeguard"
+      "a digital world to safeguard"
     ];
     let currentIndex = 0;
     const dynamicText = document.getElementById("dynamic");
-
-    // change phrase every 4 seconds with fade-out and fade-in transitions
     setInterval(() => {
       dynamicText.style.opacity = 0;
       setTimeout(() => {
