@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>privacy consulting</title>
+  <style>
+    /* overall page style: dark background with a technical, mysterious vibe */
+    body {
+      background-color: #000;
+      color: #0f0;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'courier new', courier, monospace;
+      text-align: center;
+      text-transform: lowercase;
+    }
+    /* container for centered content */
+    .container {
+      max-width: 800px;
+      padding: 20px;
+    }
+    .message {
+      font-size: 2em;
+      margin: 20px 0;
+    }
+    /* static part styling */
+    .static {
+      margin-bottom: 10px;
+    }
+    /* dynamic text with smooth fade transition and fixed width */
+    .dynamic {
+      transition: opacity 0.5s ease-in-out;
+      display: inline-block;
+      min-width: 23ch; /* fixed width to accommodate longest phrase */
+    }
+    .contact {
+      font-size: 1em;
+      margin-top: 160px; /* pushed further down */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="message">
+      <div class="static">everyone has</div>
+      <div class="dynamic-container">
+        <span id="dynamic" class="dynamic">a right to privacy</span>
+      </div>
+    </div>
+    <div class="contact">
+      <p>contact: info [at] bufoventures [dot] com</p>
+      <p>signal: bufoventures.22</p>
+    </div>
+  </div>
+  <script>
+    // list of dynamic phrases
+    const phrases = [
+      "a life worth securing",
+      "personal data worth protecting",
+      "digital world to safeguard"
+    ];
+    let currentIndex = 0;
+    const dynamicText = document.getElementById("dynamic");
+
+    // change phrase every 4 seconds with fade-out and fade-in transitions
+    setInterval(() => {
+      dynamicText.style.opacity = 0;
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % phrases.length;
+        dynamicText.textContent = phrases[currentIndex];
+        dynamicText.style.opacity = 1;
+      }, 500);
+    }, 4000);
+  </script>
+</body>
+</html>
