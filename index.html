@@ -3,48 +3,56 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bufo Ventures</title>
+  <title>privacy consulting</title>
   <style>
+    /* dark, technical aesthetic */
     body {
-      background-color: #000;
-      color: #0f0;
       margin: 0;
       height: 100vh;
+      background: #000;
+      color: #0f0;
+      font-family: 'courier new', courier, monospace;
+      text-transform: lowercase;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'courier new', courier, monospace;
-      text-align: center;
-      text-transform: lowercase;
+      overflow: hidden;
     }
     .container {
-      max-width: 800px;
+      text-align: center;
       padding: 20px;
     }
     .message {
       font-size: 2em;
-      margin: 20px 0;
+      margin-bottom: 40px;
     }
     .static {
       margin-bottom: 10px;
+      display: block;
     }
     .dynamic {
-      transition: opacity 0.5s ease-in-out;
       display: inline-block;
+      min-width: 28ch;
+      white-space: pre; /* preserve spaces */
+    }
+    .dynamic span {
+      display: inline-block;
+      color: rgba(0,255,0,0.3);
+    }
+    .dynamic span.revealed {
+      color: #0f0;
     }
     .contact {
-      font-size: 1em;
-      margin-top: 160px;
+      font-size: 1.2em;
+      margin-top: 240px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="message">
-      <div class="static">everyone has</div>
-      <div class="dynamic-container">
-        <span id="dynamic" class="dynamic">a right to privacy</span>
-      </div>
+      <span class="static">everyone has</span>
+      <span id="dynamic" class="dynamic"></span>
     </div>
     <div class="contact">
       <p>contact: info [at] bufoventures [dot] com</p>
@@ -52,22 +60,63 @@
     </div>
   </div>
   <script>
+    // characters for scrambling
+    const letters = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{};:,.<>/?";
     const phrases = [
       "the desire for peace of mind",
       "a life worth securing",
       "personal data worth protecting",
       "a digital world to safeguard"
     ];
-    let currentIndex = 0;
-    const dynamicText = document.getElementById("dynamic");
-    setInterval(() => {
-      dynamicText.style.opacity = 0;
-      setTimeout(() => {
-        currentIndex = (currentIndex + 1) % phrases.length;
-        dynamicText.textContent = phrases[currentIndex];
-        dynamicText.style.opacity = 1;
-      }, 500);
-    }, 4000);
+    let idx = 0;
+    const container = document.getElementById('dynamic');
+
+    function scrambleTo(text, onComplete) {
+      container.innerHTML = '';
+      let remaining = text.length;
+
+      for (let i = 0; i < text.length; i++) {
+        const span = document.createElement('span');
+        container.appendChild(span);
+
+        if (text[i] === ' ') {
+          // preserve space
+          span.textContent = ' ';
+          span.classList.add('revealed');
+          remaining--;
+          continue;
+        }
+
+        // initial random char
+        span.textContent = letters[Math.floor(Math.random() * letters.length)];
+
+        // continuous scramble until reveal
+        const scrambleInterval = setInterval(() => {
+          span.textContent = letters[Math.floor(Math.random() * letters.length)];
+        }, 100);
+
+        // reveal after random delay 200-1200ms
+        const delay = Math.random() * 1000 + 200;
+        setTimeout(() => {
+          clearInterval(scrambleInterval);
+          span.textContent = text[i];
+          span.classList.add('revealed');
+          remaining--;
+          if (remaining === 0) onComplete();
+        }, delay);
+      }
+    }
+
+    function nextPhrase() {
+      scrambleTo(phrases[idx], () => {
+        setTimeout(() => {
+          idx = (idx + 1) % phrases.length;
+          nextPhrase();
+        }, 3000);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', nextPhrase);
   </script>
 </body>
 </html>
