@@ -46,6 +46,52 @@
       font-size: 1.2em;
       margin-top: 240px;
     }
+    /* responsive design for mobile */
+    @media (max-width: 768px) {
+      .message {
+        font-size: 1.5em;
+      }
+      .contact {
+        font-size: 1em;
+        margin-top: 120px;
+      }
+      .dynamic {
+        min-width: 20ch;
+      }
+    }
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+      .message {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+      }
+      .contact {
+        font-size: 0.9em;
+        margin-top: 80px;
+      }
+      .contact p {
+        margin: 8px 0;
+      }
+      .dynamic {
+        min-width: 18ch;
+        font-size: 0.95em;
+      }
+    }
+    @media (max-width: 360px) {
+      .message {
+        font-size: 1em;
+      }
+      .contact {
+        font-size: 0.85em;
+        margin-top: 60px;
+      }
+      .dynamic {
+        min-width: 16ch;
+        font-size: 0.9em;
+      }
+    }
   </style>
 </head>
 <body>
